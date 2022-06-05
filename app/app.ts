@@ -11,9 +11,16 @@ class appServer {
         this.app.use(express.urlencoded({extended: true}))
         this.app.use(morgan("dev"))
         this.app.use(cors())
+
+        this.app.use('/api', this.routers())
         this.listen()
+
     }
 
+    routers(): Array<express.Router> {
+        return []
+    }
+    
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`Server listened in port:${this.port}`)
