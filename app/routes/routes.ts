@@ -7,5 +7,8 @@ export class basicRouter<T> {
     constructor(TController: {new (): T}) {
         this.router = Router()
         this.controller = new TController()
+        this.routes()
     }
+    
+    routes(){}
 }

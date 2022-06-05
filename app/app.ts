@@ -1,6 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import { userRouters } from './routes/usersRoutes'
 
 class appServer {
     public app: express.Application = express()
@@ -18,7 +19,7 @@ class appServer {
     }
 
     routers(): Array<express.Router> {
-        return []
+        return [new userRouters().router]
     }
     
     public listen() {
