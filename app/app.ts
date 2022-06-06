@@ -2,12 +2,14 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import { userRouters } from './routes/usersRoutes'
+import { dotenvConfig } from '../config/configEnvs'
 
-class appServer {
+class appServer extends dotenvConfig {
     public app: express.Application = express()
-    private port: number = 8000
+    private port: number = this.getNumberEnv("PORT") || 5000;
 
     constructor(){
+        super();
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
         this.app.use(morgan("dev"))
