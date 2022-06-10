@@ -1,12 +1,12 @@
 {
   "name": "ts-node-api-oop",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is an server app with Nodejs Typescript Docker and Orient Object Programming",
   "main": "app.js",
   "scripts": {
     "start": "tsc && node dist/app/app.js",
-    "dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app/app.js\"",
-    "prod": "SET NODE_ENV=production && npm start"
+    "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app/app.js\"",
+    "start:prod": "SET NODE_ENV=production && npm start"
   },
   "repository": {
     "type": "git",
