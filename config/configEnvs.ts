@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'
 import { DataSourceOptions } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 
-export abstract class dotenvConfig {
+export abstract class DotenvConfig {
     constructor(){
         const nameNodeEnv = this.pathEnv(this.nodeEnv)
         dotenv.config({
@@ -44,7 +44,7 @@ export abstract class dotenvConfig {
             migrations: [__dirname + "/../migrations/+{.ts,.js}"],
             synchronize:true,
             logging:false, 
-            namingStrategy: new SnakeNamingStrategy(),
+            //namingStrategy: new SnakeNamingStrategy(),
         }
     }
 }

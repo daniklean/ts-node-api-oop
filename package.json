@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "tsc && node dist/app/app.js",
-    "start:dev": "tsc ts-node && concurrently \"tsc -w\" \"nodemon dist/app/app.js\"",
+    "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app/app.js\"",
     "start:prod": "SET NODE_ENV=production && npm start"
   },
   "repository": {

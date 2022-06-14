@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { userController } from "../controllers/usersControllers";
-import { basicRouter } from "./routes";
+import { UserController } from "../controllers/usersControllers";
+import { BasicRouter } from "./routes";
 
-export class userRouters extends basicRouter<userController> {
+export class UserRouters extends BasicRouter<UserController> {
     constructor(){
-        super(userController)
+        super(UserController)
     }
 
     routes(): void {
