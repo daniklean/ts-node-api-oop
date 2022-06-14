@@ -1,11 +1,11 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import { userRouters } from './routes/usersRoutes'
-import { dotenvConfig } from '../config/configEnvs'
+import { UserRouters } from './routes/usersRoutes'
+import { DotenvConfig } from '../config/configEnvs'
 import { DataSource } from 'typeorm'
 
-class appServer extends dotenvConfig {
+class appServer extends DotenvConfig {
     public app: express.Application = express()
     private port: number = this.getNumberEnv("PORT") || 5000;
 
@@ -24,11 +24,11 @@ class appServer extends dotenvConfig {
     }
 
     routers(): Array<express.Router> {
-        return [new userRouters().router]
+        return [new UserRouters().router]
     }
     
     async dbConnect(): Promise<DataSource> { 
-        return await new DataSource(this.typeORMConfig).initialize(); 
+        return await new DataSource(this.typeORMConfig).initialize();
     }
 
     public listen() {
