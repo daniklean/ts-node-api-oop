@@ -11,7 +11,7 @@ export abstract class DotenvConfig {
     } 
 
     public getEnv(k: string): string | undefined {
-        return process.env[k] // process.env."PORT"
+        return process.env[k]
     }
 
     public getNumberEnv(k: string): number {
@@ -44,7 +44,7 @@ export abstract class DotenvConfig {
             migrations: [__dirname + "/../migrations/+{.ts,.js}"],
             synchronize:true,
             logging:false, 
-            //namingStrategy: new SnakeNamingStrategy(),
+            namingStrategy: new SnakeNamingStrategy(),
         }
     }
 }
