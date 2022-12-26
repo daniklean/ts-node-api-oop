@@ -1,12 +1,11 @@
 version: "3.1"
-
 services:
   service_db:
-    mysql: "5.7"
+    image: mysql:5.7
     volumes:
-      - ./mysql_init/init.sql:/docker.entrypoint.initdb.d/init.sql;
+      - ./mysql_init/init.sql:/docker.entrypoint.initdb.d/init.sql
     command: --init-file /docker-entrypoint-initdb.d/init.sql
-    port:
+    ports:
     - "3312:3306"
     environment:
       MYSQL_DATABASE: server_db
