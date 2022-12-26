@@ -2,19 +2,19 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import { UserRouters } from './routes/usersRoutes'
-import { DotenvConfig } from '../config/configEnvs'
+import { DotenvConfig } from '../config/ConfigEnvs'
 import { DataSource } from 'typeorm'
 
-class appServer extends DotenvConfig {
+class AppServer extends DotenvConfig {
     public app: express.Application = express()
     private port: number = this.getNumberEnv("PORT") || 5000;
 
     constructor(){
-        super();
+        super()
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
 
-        this.dbConnect()
+        //this.dbConnect()
         
         this.app.use(morgan("dev"))
         this.app.use(cors())
@@ -27,9 +27,9 @@ class appServer extends DotenvConfig {
         return [new UserRouters().router]
     }
     
-    async dbConnect(): Promise<DataSource> { 
-        return await new DataSource(this.typeORMConfig).initialize();
-    }
+    //{async dbConnect(): Promise<DataSource> { 
+        //return await new DataSource(this.typeORMConfig).initialize();
+    //}
 
     public listen() {
         this.app.listen(this.port, () => {
@@ -38,4 +38,4 @@ class appServer extends DotenvConfig {
     }
 }
 
-new appServer()
+new AppServer()

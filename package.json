@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/app/app.js",
     "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app/app.js\"",
-    "start:prod": "SET NODE_ENV=production && npm start"
+    "start:prod": "SET || export NODE_ENV=production && npm start"
   },
   "repository": {
     "type": "git",
