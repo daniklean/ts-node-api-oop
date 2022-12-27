@@ -42,7 +42,7 @@ export abstract class DotenvConfig {
             password: this.getEnvironment('DB_PASSWORD'),
             database: this.getEnvironment('DB_DATABASE'),
             entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-            migrations: [__dirname + "/../migrations/+{.ts,.js}"],
+            migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
             synchronize:true,
             logging:false, 
             namingStrategy: new SnakeNamingStrategy(),

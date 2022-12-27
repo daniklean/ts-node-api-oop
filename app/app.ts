@@ -14,7 +14,7 @@ class AppServer extends DotenvConfig {
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
 
-        //this.dbConnect()
+        this.dbConnect()
         
         this.app.use(morgan("dev"))
         this.app.use(cors())
@@ -27,9 +27,9 @@ class AppServer extends DotenvConfig {
         return [new UserRouters().router]
     }
     
-    //{async dbConnect(): Promise<DataSource> { 
-        //return await new DataSource(this.typeORMConfig).initialize();
-    //}
+    async dbConnect(): Promise<DataSource> { 
+        return await new DataSource(this.typeORMConfig).initialize();
+    }
 
     public listen() {
         this.app.listen(this.port, () => {
