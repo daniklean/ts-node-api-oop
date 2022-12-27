@@ -1,7 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import { UserRouters } from './routes/usersRoutes'
+import { UserRouters } from './user/routes/UsersRoutes'
 import { DotenvConfig } from '../config/ConfigEnvs'
 import { DataSource } from 'typeorm'
 
@@ -22,14 +22,20 @@ class AppServer extends DotenvConfig {
         this.app.use('/api', this.routers())
         this.listen()
     }
-
+ 
     routers(): Array<express.Router> {
         return [new UserRouters().router]
     }
     
-    async dbConnect(): Promise<DataSource> { 
-        return await new DataSource(this.typeORMConfig).initialize();
-    }
+   async dbConnect() {
+        try {
+            const source = await new DataSource(this.typeORMConfig).initialize()
+            console.log(` Database Connected: Active MySQL`)
+            return source
+        } catch (e:any) {
+            console.log(`Database Don't Connected: ${e}`)
+        }
+   }
 
     public listen() {
         this.app.listen(this.port, () => {
