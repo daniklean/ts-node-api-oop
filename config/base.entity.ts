@@ -9,13 +9,13 @@ export abstract class BaseEntity {
     id!: string;
 
     @CreateDateColumn({
-        name: "created_Ad",
+        name: "created_at",
         type: "timestamp",
     })
     createdAd!: Date;
 
     @UpdateDateColumn({
-        name: "update_Ad",
+        name: "updated_at",
         type: "timestamp",
     })
     updateAt!: Date;
