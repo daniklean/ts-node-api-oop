@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv'
 import { DataSourceOptions } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { DataSource } from 'typeorm'
 
 export abstract class DotenvConfig {
     constructor(){
@@ -48,4 +49,14 @@ export abstract class DotenvConfig {
             namingStrategy: new SnakeNamingStrategy(),
         }
     }
+
+    async dbConnect() {
+        try {
+            const source = await new DataSource(this.typeORMConfig).initialize()
+            console.log(` Database Connected: Active MySQL`)
+            return source
+        } catch (e:any) {
+            console.log(`Database Don't Connected: ${e}`)
+        }
+   }
 }
