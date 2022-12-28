@@ -1,6 +1,6 @@
 import { EntityTarget, ObjectLiteral, Repository } from 'typeorm';
-import { BaseEntity } from './base.entity';
-import { DotenvConfig } from './ConfigEnvs'
+import { BaseEntity } from '../base_entities/base.entity';
+import { DotenvConfig } from '../ConfigEnvs'
 
 
 export class BaseService<T extends BaseEntity> extends DotenvConfig {
