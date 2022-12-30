@@ -12,7 +12,7 @@ export class BaseService<T extends BaseEntity> extends DotenvConfig {
     }
     
     async initRepository<T extends ObjectLiteral>(entity: EntityTarget<T>): Promise<Repository<T>> {
-        const getConn = await this.dbConnect() 
+        const getConn = await this.dbConnect()
         return await getConn?.getRepository(entity)!
     }
 }

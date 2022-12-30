@@ -44,19 +44,25 @@ export abstract class DotenvConfig {
             database: this.getEnvironment('DB_DATABASE'),
             entities: [__dirname + "/../**/*.entity{.ts,.js}"],
             migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
-            synchronize:true,
+            synchronize: false,
             logging:false, 
             namingStrategy: new SnakeNamingStrategy(),
         }
     }
 
-    async dbConnect() {
+    async dbConnect(): Promise<DataSource | void>  {
         try {
-            const source = await new DataSource(this.typeORMConfig).initialize()
-            console.log(` Database Connected: Active MySQL`)
-            return source
-        } catch (e:any) {
-            console.log(`Database Don't Connected: ${e}`)
+            const source = (await (await new DataSource(this.typeORMConfig)).initialize())
+
+            const connected = source.isInitialized
+            console.log(source.isInitialized!)
+
+            if(connected === true){
+                console.log(` Database Connected: Active MySQL`)
+                return source
+            }
+        } catch (error: any) {
+            console.log(`Problem with Database Don't connected: ${error}`)
         }
    }
 }
