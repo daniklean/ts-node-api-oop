@@ -1,15 +1,23 @@
 import { Request, Response } from 'express'
+import { DeleteResult, UpdateResult } from 'typeorm'
+import { ResponseCodeStatus } from '../../shared/handle_Errors/http.response'
 import { UserService } from '../services/user.service'
 
 export class UserController {
-   constructor(private readonly userService: UserService = new UserService){}
+   constructor(
+      private readonly userService: UserService = new UserService,
+      private readonly status: ResponseCodeStatus = new ResponseCodeStatus 
+      ){}
 
    async getUser(req: Request, res:Response) {
       try {
          const data = await this.userService.findAllUser()
-         res.status(200).json(data)
+         if(data.length === 0){
+            return this.status.NotFound(res,data)
+         }
+         return this.status.Success(res,data)
       } catch (error:any) {
-         console.log(`Muchacho ocurrio un error: ${error}`)
+         return this.status.ServerError(res,error)
       }
    }
 
@@ -17,9 +25,12 @@ export class UserController {
       try {
          const { id } = req.params
          const data = await this.userService.findUserByID(id)
-         res.status(200).json(data)
+         if(!data){
+            return this.status.NotFound(res,"Not exist User")
+         }
+         return this.status.Success(res,data)
       } catch (error:any) {
-         console.log(`Muchacho ocurrio un error: ${error}`)
+         return this.status.ServerError(res,error)
       }
    }
 
@@ -28,27 +39,33 @@ export class UserController {
          const data = await this.userService.createUser(req.body)
          res.status(200).json(data)
       } catch (error:any) {
-         console.log(`Muchacho ocurrio un error: ${error}`)
+         return this.status.ServerError(res,error)
       }
    }
 
    async updateUser(req: Request, res:Response) {
       try {
          const { id } = req.params
-         const data = await this.userService.updateUser(id, req.body)
+         const data: UpdateResult = await this.userService.updateUser(id, req.body)
+         if(!data.affected){
+            return this.status.NotFound(res,"Not updated data user")
+         }
          res.status(200).json(data)
       } catch (error:any) {
-         console.log(`Muchacho ocurrio un error: ${error}`)
+         return this.status.ServerError(res,error)
       }
    }
 
    async deleteUser(req: Request, res:Response) {
       try {
          const { id } = req.params
-         const data = await this.userService.deleteUser(id)
+         const data: DeleteResult = await this.userService.deleteUser(id)
+         if(!data.affected){
+            return this.status.NotFound(res,"Not delete data user")
+         }
          res.status(200).json(data)
       } catch (error:any) {
-         console.log(`Muchacho ocurrio un error: ${error}`)
+         return this.status.ServerError(res,error)
       }
    }
 }
