@@ -12,10 +12,10 @@ export class PurchaseEntity extends BaseEntity {
     @Column()
     paymentMethod!: string;
 
-   @ManyToOne(() => CustomerEntity, (customer) => customer.purchases)
-   @JoinColumn({name:'customer_id'})
-   customer!: CustomerEntity
+    @ManyToOne(() => CustomerEntity, (customer) => customer.purchases)
+    @JoinColumn({name:'customer_id'})
+    customer!: CustomerEntity
 
-   @OneToMany(() => PurchaseProductEntity, (purchaseProduct) => purchaseProduct.purchase)
-   purchaseProduct!: PurchaseProductEntity[]
+    @OneToMany(() => PurchaseProductEntity, (purchaseProduct) => purchaseProduct.purchase)
+    purchaseProduct!: PurchaseProductEntity[]
 }

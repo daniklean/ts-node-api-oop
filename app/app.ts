@@ -13,7 +13,7 @@ class AppServer extends DotenvConfig {
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
 
-        this.dbConnect()
+        this.dbConnect
         
         this.app.use(morgan("dev"))
         this.app.use(cors())
