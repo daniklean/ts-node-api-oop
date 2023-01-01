@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv'
-import { DataSourceOptions } from 'typeorm'
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { DataSource } from 'typeorm'
+import { initDataSource } from './base_db/data.source'
 
 export abstract class DotenvConfig {
     constructor(){
@@ -34,35 +33,17 @@ export abstract class DotenvConfig {
         return '.' + arrEnv.join('.')
     }
 
-    public get  typeORMConfig(): DataSourceOptions {
-        return {
-            type: 'mysql',
-            host: this.getEnvironment('DB_HOST'),
-            port: this.getNumberEnv('DB_PORT'),
-            username: this.getEnvironment('DB_USER'),
-            password: this.getEnvironment('DB_PASSWORD'),
-            database: this.getEnvironment('DB_DATABASE'),
-            entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-            migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
-            synchronize: false,
-            logging:false, 
-            namingStrategy: new SnakeNamingStrategy(),
+    protected async dbConnect(): Promise<DataSource | void> {
+        try {
+           const source = await initDataSource.initialize()
+           const connect = source.isInitialized
+
+           if(connect === true){
+            console.log('Database Connected: Active MySQL')
+           }
+           return source
+        } catch (error:any) {
+            console.log(`Problem with Database don't connected: ${error}`)
         }
     }
-
-    async dbConnect(): Promise<DataSource | void>  {
-        try {
-            const source = (await (await new DataSource(this.typeORMConfig)).initialize())
-
-            const connected = source.isInitialized
-            console.log(source.isInitialized!)
-
-            if(connected === true){
-                console.log(` Database Connected: Active MySQL`)
-                return source
-            }
-        } catch (error: any) {
-            console.log(`Problem with Database Don't connected: ${error}`)
-        }
-   }
 }
