@@ -1,6 +1,5 @@
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv"
-import { DotenvConfig } from "../ConfigEnvs";
 import { DataSourceOptions } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
@@ -16,8 +15,8 @@ const config : DataSourceOptions = {
             username: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
-            entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-            migrations: [__dirname + "/../migrations/*{.ts,.js}"],
+            entities: [__dirname + "/../../app/**/*.entity{.ts,.js}"],
+            migrations: [__dirname + "/../app//migrations/*{.ts,.js}"],
             synchronize: false,
             migrationsRun: true,
             logging:false, 
