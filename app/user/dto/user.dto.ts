@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { BaseDTO } from "../../../config/base_dto/base.dto";
+import { Exclude } from "class-transformer";
 
 export class UserDTO extends BaseDTO {
     
