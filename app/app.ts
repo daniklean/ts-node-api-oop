@@ -2,8 +2,14 @@ import "reflect-metadata"
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import { UserRouters } from './user/routes/UsersRoutes'
 import { DotenvConfig } from '../config/ConfigEnvs'
+
+import { UserRouters } from './user/routes/UsersRoutes'
+import { CategoryRouters } from "./category/routes/CategoriesRoutes"
+import { CustomerRouters } from "./customer/routes/CustomerRoutes"
+import { ProductRouters } from "./product/routes/ProductRoutes"
+import { PurchaseRouters } from "./purchase/routes/PurchaseRoutes"
+import { PurchaseProductRouters } from "./purchase/routes/PurchaseProductsRoutes"
 
 class AppServer extends DotenvConfig {
     public app: express.Application = express()
@@ -24,7 +30,14 @@ class AppServer extends DotenvConfig {
     }
  
     routers(): Array<express.Router> {
-        return [new UserRouters().router]
+        return [
+            new UserRouters().router, 
+            new CategoryRouters().router, 
+            new CustomerRouters().router, 
+            new ProductRouters().router,
+            new PurchaseRouters().router,
+            new PurchaseProductRouters().router
+        ]
     }
     
     public listen() {
