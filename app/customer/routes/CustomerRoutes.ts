@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CustomerController } from "../controllers/CustomerControllers";
 import { BaseRouter } from "../../shared/router/BaseRouter";
 
-export class UserRouters extends BaseRouter<CustomerController> {
+export class CustomerRouters extends BaseRouter<CustomerController> {
     constructor(){
         super(CustomerController)
     }
