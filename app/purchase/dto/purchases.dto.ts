@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { BaseDTO } from "../../../config/base_dto/base.dto";
+import { CustomerEntity } from "../../customer/entities/customer.entity";
 
 
 export class PurchaseDTO extends BaseDTO {
@@ -9,13 +10,7 @@ export class PurchaseDTO extends BaseDTO {
 
     @IsNotEmpty()
     paymentMethod!: string;
-}
-
-export class PurchasesProductsDTO extends BaseDTO {
 
     @IsNotEmpty()
-    quantityProduct!: number;
-
-    @IsNotEmpty()
-    totalPrice!: number;
+    customer!: CustomerEntity;
 }
