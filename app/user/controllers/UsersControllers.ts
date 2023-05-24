@@ -34,6 +34,19 @@ export class UserController {
       }
    }
 
+   async getUserWithRelationById(req: Request, res: Response) {
+      try {
+         const { id } = req.params;
+         const data = await this.userService.findUserWithRelation(id);
+         if (!data) {
+            return this.status.NotFound(res, "Not match data relation");
+        }
+         return this.status.Success(res, data);
+      } catch (error:any) {
+         return this.status.ServerError(res, error);
+      }
+    }
+
    async postCreateUser(req: Request, res:Response) {
       try {
          const data = await this.userService.createUser(req.body)
@@ -61,7 +74,7 @@ export class UserController {
          const { id } = req.params
          const data: DeleteResult = await this.userService.deleteUser(id)
          if(!data.affected){
-            return this.status.NotFound(res,"Not delete data user")
+            return this.status.NotFound(res,"Not deleted data user")
          }
          res.status(200).json(data)
       } catch (error:any) {
