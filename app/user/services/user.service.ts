@@ -14,14 +14,20 @@ export class UserService extends BaseService<UserEntity> {
     async findUserByID(id: string): Promise<UserEntity | null>{
         return (await this.execRepository).findOneBy({id})
     }
+    async findUserWithRelation(id: string): Promise<UserEntity | null> {
+        return (await this.execRepository)
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.customer", "customer")
+        .where({ id })
+        .getOne();
+    }
     async createUser(body: UserDTO): Promise<UserEntity>{
         return (await this.execRepository).save(body)
     }
     async updateUser(id: string, dataUpdate: UserDTO): Promise<UpdateResult>{
         return (await this.execRepository).update(id, dataUpdate)
     }
-    async deleteUser(id: string){
+    async deleteUser(id: string): Promise<DeleteResult> {
         return (await this.execRepository).delete({id})
     }
-    
 }
