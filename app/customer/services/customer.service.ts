@@ -15,13 +15,20 @@ export class CustomerService extends BaseService<CustomerEntity> {
     async findCustomerByID(id: string): Promise<CustomerEntity | null>{
         return (await this.execRepository).findOneBy({id})
     }
+    async findCustomerWithRelation(id: string): Promise<CustomerEntity | null>{
+        return (await this.execRepository)
+        .createQueryBuilder('customer')
+        .leftJoinAndSelect('customer.user', 'user')
+        .where({id})
+        .getOne()
+    }
     async createCustomer(body: CustomerDTO): Promise<CustomerEntity>{
         return (await this.execRepository).save(body)
     }
     async updateCustomer(id: string, dataUpdate: CustomerDTO): Promise<UpdateResult>{
         return (await this.execRepository).update(id, dataUpdate)
     }
-    async deleteCustomer(id: string){
+    async deleteCustomer(id: string): Promise<DeleteResult>{
         return (await this.execRepository).delete({id})
     }
 }
