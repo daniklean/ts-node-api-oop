@@ -33,6 +33,19 @@ export class CustomerController {
            return this.status.ServerError(res,error)
         }
      }
+
+     async getUserWithRelationById(req: Request, res: Response) {
+      try {
+         const { id } = req.params;
+         const data = await this.customerService.findCustomerWithRelation(id);
+         if (!data) {
+            return this.status.NotFound(res, "Not match data relation");
+        }
+         return this.status.Success(res, data);
+      } catch (error:any) {
+         return this.status.ServerError(res, error);
+      }
+    }
   
      async postCreateCustomer(req: Request, res:Response) {
         try {
