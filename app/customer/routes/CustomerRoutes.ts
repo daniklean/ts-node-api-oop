@@ -12,6 +12,8 @@ export class CustomerRouters extends BaseRouter<CustomerController> {
         
         this.router.get("/customer/:id", (req:Request, res:Response) => this.controller.getCustomerByID(req,res))
 
+        this.router.get("/customerUser/:id", (req:Request, res:Response) => this.controller.getUserWithRelationById(req,res))
+
         this.router.post("/createCustomer", (req:Request, res:Response) => this.controller.postCreateCustomer(req,res))
         
         this.router.put("/updateCustomer/:id", (req:Request, res:Response) => this.controller.updateCustomer(req,res))
