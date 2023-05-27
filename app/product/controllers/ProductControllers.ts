@@ -34,7 +34,7 @@ export class ProductControllers {
         }
      }
   
-     async postCreateProduct(req: Request, res:Response) {
+     async createProduct(req: Request, res:Response) {
         try {
            const data = await this.productService.createProduct(req.body)
            res.status(200).json(data)
