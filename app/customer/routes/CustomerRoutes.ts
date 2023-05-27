@@ -13,25 +13,25 @@ export class CustomerRouters extends BaseRouter<CustomerController, CustomerMidd
         (req:Request, res:Response) => 
         this.controller.getCustomers(req,res))
         
-        this.router.get("/customer/customer/:id", 
+        this.router.get("/customers/:id", 
         (req:Request, res:Response) => 
         this.controller.getCustomerByID(req,res))
 
-        this.router.get("/customer/customer-user/:id", 
+        this.router.get("/customers/:id/users", 
         (req:Request, res:Response) => 
         this.controller.getUserWithRelationById(req,res))
 
-        this.router.post("/customer/create-customer", 
+        this.router.post("/customers", 
         (req: Request, res: Response, next: NextFunction) => 
         [(this.middleware.customerValidate(req,res,next))],
         (req:Request, res:Response) => 
-        this.controller.postCreateCustomer(req,res))
+        this.controller.createCustomer(req,res))
         
-        this.router.put("/customer/update-customer/:id", 
+        this.router.put("/customers/:id", 
         (req:Request, res:Response) => 
         this.controller.updateCustomer(req,res))
 
-        this.router.delete("customer/delete-customer/:id", 
+        this.router.delete("/customers/:id", 
         (req:Request, res:Response) => 
         this.controller.deleteCustomer(req,res))
     }
