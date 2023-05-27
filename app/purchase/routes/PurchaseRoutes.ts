@@ -13,21 +13,21 @@ export class PurchaseRouters extends BaseRouter<PurchaseControllers, PurchaseMid
         (req:Request, res:Response) => 
         this.controller.getPurchases(req,res))
         
-        this.router.get("/purchase/purchase/:id", 
+        this.router.get("/purchases/:id", 
         (req:Request, res:Response) => 
         this.controller.getPurchaseByID(req,res))
 
-        this.router.post("/purchase/create-purchase", 
+        this.router.post("/purchases", 
         (req: Request,res: Response, next: NextFunction) => 
         [(this.middleware.purchaseValidate(req,res,next))],
         (req:Request, res:Response) => 
-        this.controller.postCreatePurchase(req,res))
+        this.controller.createPurchase(req,res))
         
-        this.router.put("/purchase/update-purchase/:id", 
+        this.router.put("/purchases/:id", 
         (req:Request, res:Response) => 
         this.controller.updatePurchase(req,res))
 
-        this.router.delete("/purchase/detele-purchase/:id", 
+        this.router.delete("/purchases/:id", 
         (req:Request, res:Response) => 
         this.controller.deletePurchase(req,res))
     }

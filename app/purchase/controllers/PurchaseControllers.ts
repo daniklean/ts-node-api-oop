@@ -34,7 +34,7 @@ export class PurchaseControllers {
       }
    }
 
-   async postCreatePurchase(req: Request, res:Response) {
+   async createPurchase(req: Request, res:Response) {
       try {
          const data = await this.purchaseService.createPurchase(req.body)
          res.status(200).json(data)
