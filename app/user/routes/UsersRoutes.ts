@@ -11,27 +11,27 @@ export class UserRouters extends BaseRouter<UserController, UserMiddleware> {
     routes(): void {
         this.router.get("/users", 
         (req:Request, res:Response) => 
-        this.controller.getUser(req,res))
+        this.controller.getUsers(req,res))
         
-        this.router.get("/user/user/:id", 
+        this.router.get("/users/:id", 
         (req:Request, res:Response) => 
         this.controller.getUserByID(req,res))
 
-        this.router.get("/user/user-customer/:id", 
+        this.router.get("/users/:id/customer", 
         (req:Request, res:Response) => 
         this.controller.getUserWithRelationById(req,res))
 
-        this.router.post("/user/create-user", 
+        this.router.post("/users", 
         (req: Request,res: Response, next: NextFunction) => 
         [this.middleware.userValidate(req,res,next)], 
         (req:Request, res:Response) => 
-        this.controller.postCreateUser(req,res))
+        this.controller.createUser(req,res))
         
-        this.router.put("/user/update-user/:id", 
+        this.router.put("/users/:id", 
         (req:Request, res:Response) => 
         this.controller.updateUser(req,res))
 
-        this.router.delete("/user/detele-user/:id", 
+        this.router.delete("/users/:id", 
         (req:Request, res:Response) => 
         this.controller.deleteUser(req,res))
     }

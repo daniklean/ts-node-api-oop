@@ -9,7 +9,7 @@ export class UserController {
       private readonly status: ResponseCodeStatus = new ResponseCodeStatus 
       ){}
 
-   async getUser(req: Request, res:Response) {
+   async getUsers(req: Request, res:Response) {
       try {
          const data = await this.userService.findAllUser()
          if(data.length === 0){
@@ -47,7 +47,7 @@ export class UserController {
       }
     }
 
-   async postCreateUser(req: Request, res:Response) {
+   async createUser(req: Request, res:Response) {
       try {
          const data = await this.userService.createUser(req.body)
          res.status(200).json(data)
