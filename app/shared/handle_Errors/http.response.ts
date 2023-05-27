@@ -2,6 +2,7 @@ import { Response } from "express"
 
 export enum codeStatus {
     OK = 200,
+    BAD_REQUEST = 400,
     NOT_FOUND = 404,
     FORBIDDEN = 403,
     UNAUTHORIZED = 401,
@@ -47,6 +48,14 @@ export class ResponseCodeStatus {
         return res.status(codeStatus.FORBIDDEN).json({
             status: codeStatus.FORBIDDEN,
             statusMsg: "FORBIDDEN", 
+            error: data,
+        })
+    }
+
+    BadRequest(res:Response, data?: any) : Response {
+        return res.status(codeStatus.BAD_REQUEST).json({
+            status: codeStatus.BAD_REQUEST,
+            statusMsg: "Bad Request", 
             error: data,
         })
     }
