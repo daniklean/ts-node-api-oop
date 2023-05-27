@@ -35,7 +35,7 @@ export class UserMiddleware {
       const validationProcess = await validate(validated)
 
       if(validationProcess.length > 0) {
-         return this.status.ServerError(res,validationProcess)
+         return this.status.BadRequest(res,validationProcess)
       }
       else {
          next()
