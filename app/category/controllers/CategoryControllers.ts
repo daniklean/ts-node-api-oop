@@ -34,7 +34,7 @@ export class CategoryController {
         }
      }
   
-     async postCreateCategory(req: Request, res:Response) {
+     async createCategory(req: Request, res:Response) {
         try {
            const data = await this.categoryService.createCategory(req.body)
            res.status(200).json(data)

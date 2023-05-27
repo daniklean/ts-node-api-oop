@@ -13,21 +13,21 @@ export class CategoryRouters extends BaseRouter<CategoryController, CategoryMidd
         (req:Request, res:Response) => 
         this.controller.getCategories(req,res))
         
-        this.router.get("/category/category/:id", 
+        this.router.get("/categories:id", 
         (req:Request, res:Response) => 
         this.controller.getCategoryByID(req,res))
 
-        this.router.post("category/create-category", 
+        this.router.post("/categories", 
         (req: Request, res: Response, next: NextFunction) => 
         [(this.middleware.categoryValidate(req,res,next))],
         (req:Request, res:Response) => 
-        this.controller.postCreateCategory(req,res))
+        this.controller.createCategory(req,res))
         
-        this.router.put("category/update-category/:id", 
+        this.router.put("/categories/:id", 
         (req:Request, res:Response) => 
         this.controller.updateCategory(req,res))
 
-        this.router.delete("category/delete-category/:id", 
+        this.router.delete("/categories/:id", 
         (req:Request, res:Response) => 
         this.controller.deleteCategory(req,res))
     }
