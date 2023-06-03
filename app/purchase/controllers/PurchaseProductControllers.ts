@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { DeleteResult, UpdateResult } from 'typeorm'
 import { ResponseCodeStatus } from '../../shared/handle_Errors/http.response'
-import { PurchaseProductService } from '../services/purchase_product.service'
+import { PurchaseProductService } from '../../review/services/purchase_product.service'
 
 export class PurchaseProductControllers {
    constructor(

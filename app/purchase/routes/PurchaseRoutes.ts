@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { PurchaseControllers } from "../controllers/PurchaseControllers";
+import { PurchaseControllers } from "../../review/controllers/PurchaseControllers";
 import { BaseRouter } from "../../shared/router/BaseRouter";
 import { PurchaseMiddleware } from "../middlewares/purchase.middleware";
 

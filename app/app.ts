@@ -9,7 +9,7 @@ import { CategoryRouters } from "./category/routes/CategoriesRoutes"
 import { CustomerRouters } from "./customer/routes/CustomerRoutes"
 import { ProductRouters } from "./product/routes/ProductRoutes"
 import { PurchaseRouters } from "./purchase/routes/PurchaseRoutes"
-import { PurchaseProductRouters } from "./purchase/routes/PurchaseProductsRoutes"
+import { PurchaseProductRouters } from "./review/routes/PurchaseProductsRoutes"
 
 import { LoginStrategy } from "./authentication/strategies/login.strategy"
 import { JwtStrategy } from "./authentication/strategies/jwt.straegy"
