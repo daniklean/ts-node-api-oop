@@ -11,6 +11,9 @@ import { ProductRouters } from "./product/routes/ProductRoutes"
 import { PurchaseRouters } from "./purchase/routes/PurchaseRoutes"
 import { PurchaseProductRouters } from "./purchase/routes/PurchaseProductsRoutes"
 
+import { LoginStrategy } from "./authentication/strategies/login.strategy"
+import { JwtStrategy } from "./authentication/strategies/jwt.straegy"
+
 class AppServer extends DotenvConfig {
     public app: express.Application = express()
     private port: number = this.getNumberEnv("PORT") || 5000;
@@ -19,7 +22,7 @@ class AppServer extends DotenvConfig {
         super()
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended: true}))
-
+        this.passportUser()
         this.dbConnect
         
         this.app.use(morgan("dev"))
@@ -38,6 +41,10 @@ class AppServer extends DotenvConfig {
             new PurchaseRouters().router,
             new PurchaseProductRouters().router
         ]
+    }
+
+    passportUser(){
+        return [new LoginStrategy().use, new JwtStrategy().use]
     }
     
     public listen() {
