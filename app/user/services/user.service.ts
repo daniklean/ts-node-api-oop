@@ -42,7 +42,7 @@ export class UserService extends BaseService<UserEntity> {
 
     async findUserByEmail(email: string): Promise<UserEntity | null> {
         return (await this.execRepository)
-        .createQueryBuilder('User')
+        .createQueryBuilder('user')
         .addSelect('user.password')
         .where({ email })
         .getOne()
@@ -50,7 +50,7 @@ export class UserService extends BaseService<UserEntity> {
 
     async findUserByUsername(username: string): Promise<UserEntity | null> {
         return (await this.execRepository)
-        .createQueryBuilder('User')
+        .createQueryBuilder('user')
         .addSelect('user.password')
         .where({ username })
         .getOne()
@@ -58,7 +58,7 @@ export class UserService extends BaseService<UserEntity> {
     
     async findUserByWithRole(id: string, role: RoleType): Promise<UserEntity | null> {
         const user = (await this.execRepository)
-        .createQueryBuilder('User')
+        .createQueryBuilder('user')
         .where({ id })
         .andWhere({ role })
         .getOne()
