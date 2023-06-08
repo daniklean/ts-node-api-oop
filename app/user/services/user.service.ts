@@ -39,22 +39,6 @@ export class UserService extends BaseService<UserEntity> {
         .where({ id })
         .getOne();
     }
-
-    async findUserByEmail(email: string): Promise<UserEntity | null> {
-        return (await this.execRepository)
-        .createQueryBuilder('user')
-        .addSelect('user.password')
-        .where({ email })
-        .getOne()
-    }
-
-    async findUserByUsername(username: string): Promise<UserEntity | null> {
-        return (await this.execRepository)
-        .createQueryBuilder('user')
-        .addSelect('user.password')
-        .where({ username })
-        .getOne()
-    }
     
     async findUserByWithRole(id: string, role: RoleType): Promise<UserEntity | null> {
         const user = (await this.execRepository)
@@ -64,6 +48,21 @@ export class UserService extends BaseService<UserEntity> {
         .getOne()
 
         return user
-    } 
+    }
 
+    async findAndValidateUser(username: string): Promise<UserEntity | null> {
+        return (await this.execRepository)
+        .createQueryBuilder('user')
+        .addSelect('user.password')
+        .where((qb) => {
+            qb.where('user.email = :username', { username })
+            .orWhere('user.username = :username', { username })
+        })
+        .getOne()
+    }
+
+    async findUserExisting(username: string, email: string): Promise<UserEntity | null>{
+        return (await this.execRepository)
+        .findOne({ where: [{ username }, { email }] })
+    }
 }
