@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express"
 import { validate } from "class-validator"
 import { UserDTO } from "../dto/user.dto"
-import { ResponseCodeStatus } from "../../shared/handle_Errors/http.response"
+import { SharedMiddleware } from "../../shared/middlewares/shared.middleware"
 
 
 
-export class UserMiddleware {
-   constructor( private readonly status: ResponseCodeStatus = new ResponseCodeStatus){   
+export class UserMiddleware extends SharedMiddleware {
+   constructor(){   
+      super()
    }
 
   async userValidate(req: Request, res: Response, next: NextFunction) {
@@ -35,7 +36,7 @@ export class UserMiddleware {
       const validationProcess = await validate(validated)
 
       if(validationProcess.length > 0) {
-         return this.status.BadRequest(res,validationProcess)
+         return this.status.badRequest(res,validationProcess)
       }
       else {
          next()
