@@ -6,55 +6,63 @@ export enum codeStatus {
     NOT_FOUND = 404,
     FORBIDDEN = 403,
     UNAUTHORIZED = 401,
+    CONFLICT = 409,
     INTERNAL_SERVER_ERROR = 500
-
 }
 
 export class ResponseCodeStatus {
 
-    Success(res:Response, data?: any ): Response {
+    success(res:Response, data?: any ): Response {
         return res.status(codeStatus.OK).json({
-            status: codeStatus.OK,
+            status: true,
             statusMsg: "SUCCESS", 
             data: data,
         })
     }
 
-    NotFound(res:Response, data?: any ): Response {
+    conflict(res:Response, data?: any ): Response {
+        return res.status(codeStatus.CONFLICT).json({
+            status: false,
+            statusMsg: "Conflict Duplicated", 
+            data: data,
+        })
+    }
+
+    notFound(res:Response, data?: any ): Response {
         return res.status(codeStatus.NOT_FOUND).json({
-            status: codeStatus.NOT_FOUND,
+            status: false,
             statusMsg: "NOT FOUND", 
             error: data,
         })
     }
 
-    Unauthorized(res:Response, data?: any) : Response {
+    unauthorized(res:Response, data?: any) : Response {
         return res.status(codeStatus.UNAUTHORIZED).json({
-            status: codeStatus.UNAUTHORIZED,
+            status: false,
             statusMsg: "UNAUTHORIZED", 
             error: data,
         })
     }
 
-    ServerError(res:Response, data?: any) : Response {
+    serverError(res:Response, data?: any) : Response {
         return res.status(codeStatus.INTERNAL_SERVER_ERROR).json({
-            status: codeStatus.INTERNAL_SERVER_ERROR,
+            status: false,
             statusMsg: "INTERNAL SERVER ERROR", 
             error: data,
         })
     }
 
-    Forbiddenr(res:Response, data?: any) : Response {
+    forbidden(res:Response, data?: any) : Response {
         return res.status(codeStatus.FORBIDDEN).json({
-            status: codeStatus.FORBIDDEN,
+            status: false,
             statusMsg: "FORBIDDEN", 
             error: data,
         })
     }
 
-    BadRequest(res:Response, data?: any) : Response {
+    badRequest(res:Response, data?: any) : Response {
         return res.status(codeStatus.BAD_REQUEST).json({
-            status: codeStatus.BAD_REQUEST,
+            status: false,
             statusMsg: "Bad Request", 
             error: data,
         })
