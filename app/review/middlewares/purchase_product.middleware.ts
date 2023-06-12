@@ -25,7 +25,7 @@ export class PurchaseProductMiddleware {
       const validationProcess = await validate(validated)
 
       if(validationProcess.length > 0) {
-         return this.status.BadRequest(res,validationProcess)
+         return this.status.badRequest(res,validationProcess)
       }
       else {
          next()

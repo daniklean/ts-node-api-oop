@@ -13,11 +13,11 @@ export class PurchaseControllers {
       try {
          const data = await this.purchaseService.findAllPurchases
          if(data.length === 0){
-            return this.status.NotFound(res,data)
+            return this.status.notFound(res,data)
          }
-         return this.status.Success(res,data)
+         return this.status.success(res,data)
       } catch (error:any) {
-         return this.status.ServerError(res,error)
+         return this.status.serverError(res,error)
       }
    }
 
@@ -26,11 +26,11 @@ export class PurchaseControllers {
          const { id } = req.params
          const data = await this.purchaseService.findPurchaseByID(id)
          if(!data){
-            return this.status.NotFound(res,"Not exist Purchase")
+            return this.status.notFound(res,"Not exist Purchase")
          }
-         return this.status.Success(res,data)
+         return this.status.success(res,data)
       } catch (error:any) {
-         return this.status.ServerError(res,error)
+         return this.status.serverError(res,error)
       }
    }
 
@@ -39,7 +39,7 @@ export class PurchaseControllers {
          const data = await this.purchaseService.createPurchase(req.body)
          res.status(200).json(data)
       } catch (error:any) {
-         return this.status.ServerError(res,error)
+         return this.status.serverError(res,error)
       }
    }
 
@@ -48,11 +48,11 @@ export class PurchaseControllers {
          const { id } = req.params
          const data: UpdateResult = await this.purchaseService.updatePurchase(id, req.body)
          if(!data.affected){
-            return this.status.NotFound(res,"Not updated data purchase")
+            return this.status.notFound(res,"Not updated data purchase")
          }
          res.status(200).json(data)
       } catch (error:any) {
-         return this.status.ServerError(res,error)
+         return this.status.serverError(res,error)
       }
    }
 
@@ -61,11 +61,11 @@ export class PurchaseControllers {
          const { id } = req.params
          const data: DeleteResult = await this.purchaseService.deletePurchase(id)
          if(!data.affected){
-            return this.status.NotFound(res,"Not delete data purchase")
+            return this.status.notFound(res,"Not delete data purchase")
          }
          res.status(200).json(data)
       } catch (error:any) {
-         return this.status.ServerError(res,error)
+         return this.status.serverError(res,error)
       }
    }
 }
