@@ -13,6 +13,7 @@ import { PurchaseProductRouters } from "./review/routes/PurchaseProductsRoutes"
 
 import { LoginStrategy } from "./authentication/strategies/login.strategy"
 import { JwtStrategy } from "./authentication/strategies/jwt.straegy"
+import { AuthRouter } from "./authentication/routes/auth.router"
 
 class AppServer extends DotenvConfig {
     public app: express.Application = express()
@@ -39,7 +40,8 @@ class AppServer extends DotenvConfig {
             new CustomerRouters().router, 
             new ProductRouters().router,
             new PurchaseRouters().router,
-            new PurchaseProductRouters().router
+            new PurchaseProductRouters().router,
+            new AuthRouter().router,
         ]
     }
 
