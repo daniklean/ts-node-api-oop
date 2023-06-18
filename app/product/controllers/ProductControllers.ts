@@ -13,11 +13,11 @@ export class ProductControllers {
         try {
            const data = await this.productService.findAllProducts()
            if(data.length === 0){
-              return this.status.NotFound(res,"Not data found")
+              return this.status.notFound(res,"Not data found")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -26,11 +26,11 @@ export class ProductControllers {
            const { id } = req.params
            const data = await this.productService.findProductByID(id)
            if(!data){
-              return this.status.NotFound(res,"Not exist Product")
+              return this.status.notFound(res,"Not exist Product")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -39,7 +39,7 @@ export class ProductControllers {
            const data = await this.productService.createProduct(req.body)
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -48,11 +48,11 @@ export class ProductControllers {
            const { id } = req.params
            const data: UpdateResult = await this.productService.updateProduct(id, req.body)
            if(!data.affected){
-              return this.status.NotFound(res,"Not updated data product")
+              return this.status.notFound(res,"Not updated data product")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -61,11 +61,11 @@ export class ProductControllers {
            const { id } = req.params
            const data: DeleteResult = await this.productService.deleteProduct(id)
            if(!data.affected){
-              return this.status.NotFound(res,"Not delete data Product")
+              return this.status.notFound(res,"Not delete data Product")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
 }
