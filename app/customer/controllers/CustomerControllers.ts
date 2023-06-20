@@ -13,11 +13,11 @@ export class CustomerController {
         try {
            const data = await this.customerService.findAllCustomer()
            if(data.length === 0){
-              return this.status.NotFound(res,"Not data found")
+              return this.status.notFound(res,"Not data found")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -26,11 +26,11 @@ export class CustomerController {
            const { id } = req.params
            const data = await this.customerService.findCustomerByID(id)
            if(!data){
-              return this.status.NotFound(res,"Not exist Customer")
+              return this.status.notFound(res,"Not exist Customer")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
 
@@ -39,11 +39,11 @@ export class CustomerController {
          const { id } = req.params;
          const data = await this.customerService.findCustomerWithRelation(id);
          if (!data) {
-            return this.status.NotFound(res, "Not match data relation");
+            return this.status.notFound(res, "Not match data relation");
         }
-         return this.status.Success(res, data);
+         return this.status.success(res, data);
       } catch (error:any) {
-         return this.status.ServerError(res, error);
+         return this.status.serverError(res, error);
       }
     }
   
@@ -52,7 +52,7 @@ export class CustomerController {
            const data = await this.customerService.createCustomer(req.body)
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -61,11 +61,11 @@ export class CustomerController {
            const { id } = req.params
            const data: UpdateResult = await this.customerService.updateCustomer(id, req.body)
            if(!data.affected){
-              return this.status.NotFound(res,"Not updated data customer")
+              return this.status.notFound(res,"Not updated data customer")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -74,11 +74,11 @@ export class CustomerController {
            const { id } = req.params
            const data: DeleteResult = await this.customerService.deleteCustomer(id)
            if(!data.affected){
-              return this.status.NotFound(res,"Not delete data Category")
+              return this.status.notFound(res,"Not delete data Category")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
 }
