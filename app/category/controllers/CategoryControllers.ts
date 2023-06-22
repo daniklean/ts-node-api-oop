@@ -13,11 +13,11 @@ export class CategoryController {
         try {
            const data = await this.categoryService.findAllCategory()
            if(data.length === 0){
-              return this.status.NotFound(res,"Not data found")
+              return this.status.notFound(res,"Not data found")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -26,11 +26,11 @@ export class CategoryController {
            const { id } = req.params
            const data = await this.categoryService.findCategoryByID(id)
            if(!data){
-              return this.status.NotFound(res,"Not exist Category")
+              return this.status.notFound(res,"Not exist Category")
            }
-           return this.status.Success(res,data)
+           return this.status.success(res,data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -39,7 +39,7 @@ export class CategoryController {
            const data = await this.categoryService.createCategory(req.body)
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -48,11 +48,11 @@ export class CategoryController {
            const { id } = req.params
            const data: UpdateResult = await this.categoryService.updateCategory(id, req.body)
            if(!data.affected){
-              return this.status.NotFound(res,"Not updated data category")
+              return this.status.notFound(res,"Not updated data category")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
   
@@ -61,11 +61,11 @@ export class CategoryController {
            const { id } = req.params
            const data: DeleteResult = await this.categoryService.deleteCategory(id)
            if(!data.affected){
-              return this.status.NotFound(res,"Not delete data Category")
+              return this.status.notFound(res,"Not delete data Category")
            }
            res.status(200).json(data)
         } catch (error:any) {
-           return this.status.ServerError(res,error)
+           return this.status.serverError(res,error)
         }
      }
 }
