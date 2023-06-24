@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken'
-import { compare } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { DotenvConfig } from "../../../config/ConfigEnvs";
 import { UserService } from "../../user/services/user.service";
 import { UserEntity } from '../../user/entities/user.entity';
@@ -14,24 +14,20 @@ export class AuthService extends DotenvConfig {
     }
 
     public async validateUser(username: string, password: string): Promise<UserEntity | null> {
-        const userByEmail = await this.userServices.findUserByEmail(username)
-        const userByUsername = await this.userServices.findUserByUsername(username)
+        const userByUsernameOrEmail = await this.userServices.findAndValidateUser(username)
 
-        if (userByUsername) {
-            const isMatch = await compare(password, userByUsername.password)
-            isMatch && userByUsername
-        }
-
-        if (userByEmail) {
-            const isMatch = await compare(password, userByEmail.password)
-            isMatch && userByEmail
+        if (userByUsernameOrEmail) {
+            const isMatch = await bcrypt.compare(password, userByUsernameOrEmail.password)
+            if(isMatch){
+                return userByUsernameOrEmail
+            }
         }
 
         return null
     }
 
     sing(paylod: jwt.JwtPayload, secret: any) {
-        return this.JWTInstance.sign(paylod, secret)
+        return this.JWTInstance.sign(paylod, secret, { expiresIn: "1h"})
     }
 
     public async generateToken(user: UserEntity):
@@ -54,7 +50,6 @@ export class AuthService extends DotenvConfig {
             accessToken: this.sing(payload, this.getEnvironment("JWT_TOKEN")),
             user,
         }
-
     }
 }
 
